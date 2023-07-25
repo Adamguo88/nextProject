@@ -1,0 +1,321 @@
+.basic-content {
+  overflow: auto;
+}
+.content_table {
+  overflow: auto;
+}
+
+.basicTableStyle {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  border: 2px solid #ece6dc;
+  font-size: 14px;
+}
+
+.basicTableStyle > thead {
+  background-color: $bgc1;
+  border-bottom: 2px solid #cfbda7;
+}
+.basicTableStyle > thead > tr {
+  color: $bgc2;
+}
+.basicTableStyle > tr,
+th,
+td {
+  padding: 16px 10px;
+}
+.basicTableStyle > tbody > tr {
+  background: white;
+  border-bottom: 1px solid wheat;
+  font-size: 14px;
+  color: $bg-black;
+}
+
+.basicTableStyle > thead > tr > th:nth-child(2) {
+  width: 17%;
+  text-align: start;
+}
+
+.basicTableStyle > thead > tr > th:nth-last-child(1) {
+  width: 12%;
+}
+.finial > thead > tr > th:nth-last-child(1) {
+  width: auto;
+}
+
+.table-headers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.table-headers-icon {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.double-icons {
+  font-size: 12px;
+}
+.table-select-position {
+  position: relative;
+}
+.table-type-select-control {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.table-aciton-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.changePage-button-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.thisYearView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  padding: 2px 0;
+}
+.client-table-text {
+  padding-left: 5px;
+}
+.client-table-check {
+  background-color: rgb(255, 220, 220);
+  color: red;
+}
+.client-table-now {
+  background-color: rgb(206, 206, 252);
+  color: blue;
+}
+.client-table-finish {
+  background-color: rgb(200, 248, 200);
+  color: green;
+}
+
+// announcement table
+.announcement > thead > tr > th:nth-child(1) {
+  width: auto;
+}
+.announcement > thead > tr > th:nth-child(2) {
+  width: 15%;
+}
+.announcement > thead > tr > th:nth-child(3) {
+  width: 15%;
+}
+.announcement > thead > tr > th:nth-child(4) {
+  width: 15%;
+}
+
+.announcementIndex > thead > tr > th:nth-child(1) {
+  width: auto;
+}
+.announcementIndex > thead > tr > th:nth-child(2) {
+  width: 18%;
+}
+// competition table
+.competitionTable > thead > tr > th:nth-child(1) {
+  width: 18%;
+}
+.competitionTable > thead > tr > th:nth-child(2) {
+  width: auto;
+}
+.competitionTable > thead > tr > th:nth-child(3) {
+  width: 22%;
+}
+.competitionTable > thead > tr > th:nth-child(4) {
+  width: 12%;
+}
+
+// educationTable
+.educationTable > thead > tr > th:nth-child(1) {
+  width: 12% !important;
+}
+.educationTable > thead > tr > th:nth-child(2) {
+  width: auto;
+}
+.educationTable > thead > tr > th:nth-child(3) {
+  width: 15%;
+}
+.educationTable > thead > tr > th:nth-child(4) {
+  width: 12%;
+}
+.educationTable > thead > tr > th:nth-child(5) {
+  width: 12%;
+}
+.educationTable > thead > tr > th:nth-child(6) {
+  width: 12%;
+}
+
+.questionnaire > thead > tr > th:nth-child(1) {
+  width: 20%;
+}
+.questionnaire > thead > tr > th:nth-child(2) {
+  width: 20%;
+  text-align: center !important;
+}
+.questionnaire > thead > tr > th:nth-child(3) {
+  width: auto;
+}
+.questionnaire > thead > tr > th:nth-child(4) {
+  width: 20%;
+}
+.questionnaire > thead > tr > th:nth-child(5) {
+  width: 20%;
+}
+
+// 最後訪談 - 表格樣式
+.finial-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  border: 0.5px solid $bg-green;
+}
+
+.finial > thead > tr {
+  border: 0.5px solid $bg-green;
+}
+.finial > thead > tr > th {
+  border-right: 0.5px solid $bg-green;
+  text-align: center !important;
+}
+
+.finial > thead {
+  border-bottom: 0.5px solid $bg-green;
+}
+.finial > tbody > tr {
+  border-bottom: 0.5px solid $bg-green;
+}
+
+.finial > tbody > tr > td {
+  border-right: 0.5px solid $bg-green;
+}
+
+.situationRisk-table1 {
+  border: 1px solid $bg-green;
+}
+.situationRisk-table1 > thead {
+  border: none;
+}
+.situationRisk-table1 > thead > tr > th {
+  width: calc(100% / 3) !important;
+  text-align: center !important;
+}
+.situationRisk-table1 > thead > tr > th {
+  border: 1px solid $bg-green;
+}
+.situationRisk-table1 > tbody > tr > td {
+  border: 1px solid $bg-green;
+}
+.situationRisk-table1 > tbody > tr > td:nth-child(1) {
+  background-color: $bgc1;
+}
+
+.situationRisk-table2 {
+  border: 1px solid $bg1-2;
+}
+.situationRisk-table2 > thead {
+  background-color: $bg-green;
+  border: none;
+}
+.situationRisk-table2 > thead > tr {
+  color: $bg-color-green !important;
+}
+.situationRisk-table2 > thead > tr > th {
+  width: calc(100% / 2) !important;
+  text-align: center !important;
+}
+.situationRisk-table2 > thead > tr > th {
+  border: 1px solid $bg-green;
+}
+.situationRisk-table2 > tbody > tr > td {
+  border: 1px solid $bg-green;
+}
+
+.tableFirstSpace > thead > tr > th,
+.tableFirstSpace > tbody > tr > td {
+  padding: 16px 20px;
+}
+
+.table1 > thead > tr > th {
+  width: 100% !important;
+  text-align: start !important;
+}
+.table1 > tbody > tr > td {
+  text-align: start;
+}
+.table2 > thead > tr > th {
+  width: calc(100% / 2) !important;
+  text-align: start !important;
+}
+.table2 > tbody > tr > td {
+  text-align: start;
+}
+.table3 > thead > tr > th {
+  width: calc(100% / 3) !important;
+  text-align: start !important;
+}
+.table3 > tbody > tr > td {
+  text-align: start;
+}
+
+.table4 {
+  border: 1px solid $bg-green;
+}
+.table4 > thead {
+  border: none;
+}
+.table4 > thead > tr > th {
+  width: calc(100% / 4) !important;
+  text-align: center !important;
+}
+.table4 > thead > tr > th {
+  border: 1px solid $bg-green;
+}
+.table4 > tbody > tr > td {
+  border: 1px solid $bg-green;
+}
+.table4 > tbody > tr > td:nth-child(1) {
+  background-color: $bgc1;
+}
+
+.questionTable4 > thead > tr > th {
+  width: calc(100% / 4) !important;
+  text-align: center !important;
+}
+
+.table5 {
+  border: 1px solid $bg-green;
+}
+.table5 > thead {
+  border: none;
+}
+.table5 > thead > tr > th {
+  width: calc(100% / 5) !important;
+  text-align: center !important;
+}
+.table5 > thead > tr > th {
+  border: 1px solid $bg-green;
+}
+.table5 > tbody > tr > td {
+  border: 1px solid $bg-green;
+}
+.table5 > tbody > tr > td:nth-child(1) {
+  background-color: $bgc1;
+}
+
+@media only screen and (max-width: 768px) {
+  th,
+  td {
+    padding: 16px 5px;
+  }
+}

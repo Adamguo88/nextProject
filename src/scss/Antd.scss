@@ -1,0 +1,220 @@
+//  antd - class
+.ant-picker-content > thead {
+  background-color: $bg-white;
+}
+
+.ant-collapse-header {
+  color: $bg-white !important;
+}
+
+// antd - modal-style
+.ant-modal-content {
+  padding: 0 !important;
+}
+.ant-modal-header {
+  padding: 20px 24px !important;
+  background-color: antiquewhite !important;
+  border-bottom: 1px solid #cfbda7;
+}
+.ant-modal-header > .ant-modal-title {
+  font-weight: 800;
+  font-size: 16px !important;
+  color: $bgc2;
+}
+.ant-modal-body {
+  padding: 20px 24px;
+}
+.ant-modal-footer {
+  padding: 20px 24px;
+}
+
+.ant-modal-footer > .ant-btn-primary {
+  background-color: $bgc2;
+  color: white;
+}
+
+.ant-modal-footer > .ant-btn-primary:hover {
+  background-color: $bg-footer !important;
+  color: white !important;
+  opacity: 1;
+}
+.ant-modal-footer > .ant-btn-default {
+  border: 1px solid $bgc2;
+  color: $bgc2;
+}
+.ant-modal-footer > .ant-btn-default:hover {
+  border: 1px solid $bgc2 !important;
+  color: $bgc2 !important;
+  opacity: 1;
+}
+
+// antd input-style
+.addressWidth > .ant-space-item {
+  width: 100%;
+}
+.ant-space {
+  width: 100%;
+}
+.ant-radio-group > .ant-space > .ant-space-item {
+  width: 100%;
+}
+
+.width20 > .ant-space > .ant-space-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.selectInput > .ant-space > .ant-space-item {
+  width: 100%;
+}
+
+// antd - menu
+
+.ant-menu-submenu {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ant-menu {
+  width: 100%;
+  color: $bgc2;
+  font-weight: 900;
+  border-inline-end: none;
+}
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border-inline-end: none;
+}
+.ant-radio-group {
+  display: flex;
+}
+.ant-col-sm-16 {
+  max-width: 100%;
+}
+.bind {
+  position: relative;
+}
+.bind > .ant-row .ant-form-item-explain-validating {
+  position: absolute;
+  top: -30px;
+  left: 85px;
+  color: blue;
+  font-weight: 800;
+}
+.foreignCurrency {
+  position: relative;
+}
+.foreignCurrency > .ant-row .ant-form-item-explain-validating {
+  position: absolute;
+  top: -30px;
+  left: 85px;
+  color: blue;
+  font-weight: 800;
+}
+.average-position > .ant-row .ant-form-item-explain-validating {
+  color: blue;
+  font-weight: 800;
+  font-size: 12px;
+}
+.ant-radio-button-wrapper-checked {
+  color: white !important;
+  border-color: $bgc2 !important;
+  background-color: $bgc2 !important;
+}
+
+// label
+// .width100 > .ant-form-item > .ant-form-item-row > .ant-form-item-label {
+//   white-space: nowrap;
+//   max-width: 140px !important;
+//   width: 100% !important;
+//   text-align: start;
+// }
+
+.my-space100 > .ant-form-item {
+  width: 100%;
+}
+.ant-dropdown-trigger > .ant-space {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Modal
+.ant-modal-root > .ant-modal-mask {
+  z-index: 1002;
+}
+.ant-modal-root .ant-modal-wrap {
+  z-index: 1003;
+}
+.DeleteData > .ant-modal-content > .ant-modal-footer {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.client-upload
+  > .ant-upload-list-picture
+  > .ant-upload-list-item-container
+  > .ant-upload-list-item-done
+  > .ant-upload-list-item-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-upload-list
+  > .ant-upload-list-item-container
+  > .ant-upload-list-item
+  > .ant-upload-list-item-thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.financeCheck {
+  border: 1px solid #784a11;
+  background: rgb(249, 245, 239);
+}
+
+.alert-position {
+  position: absolute;
+  top: 32%;
+  left: 5%;
+  width: 90%;
+  z-index: 10000;
+}
+
+.ant-notification {
+  z-index: 10000;
+}
+
+// label
+.ant-form-item .ant-form-item-label > label {
+  font-size: 16px;
+}
+.ant-form-item .ant-form-item-label {
+  display: flex;
+  align-items: center;
+}
+.ant-input-number .ant-input-number-handler-wrap {
+  display: none;
+}
+
+.question-checkbox > .ant-checkbox-wrapper > span {
+  color: #784a11;
+  font-size: 16px;
+}
+
+.ant-notification {
+  .acceptModal {
+    .ant-notification-notice-content {
+      .ant-notification-notice-message {
+        color: #784a11;
+        font-weight: 800;
+      }
+      .ant-notification-notice-description {
+        white-space: pre-wrap;
+      }
+    }
+  }
+}

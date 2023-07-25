@@ -1,0 +1,199 @@
+// 背景
+$bgc1: rgb(249, 245, 239);
+$bgc1-1: #f1e9dc;
+$bg1-2: #cfbda7;
+$bgc2: #784a11;
+$bg-tree-1: #9d5909;
+$bgc3: #ece6dc;
+$bgc4: #e8e9ee;
+$bgc5: rgba(30, 30, 30, 0.3);
+$bgc5-1: rgba(30, 30, 30, 0.1);
+$bgc5-2: rgba(30, 30, 30, 0.7);
+$bgc6: #e0ceb3;
+$bg-finial-tree: #bb8f4c;
+$bg-finial-couple: #888caf;
+$bg-footer: #8b6e4a;
+
+$bg-purple: mediumpurple !important;
+$bg-black: #1e1e1e !important;
+$bg-white: white;
+$bg-chocolate: #c9b59d !important;
+$bg-transparent: transparent;
+$bg-crimson: crimson;
+$bg-couple: #414490;
+$bg-couple1: #e8e9ee;
+$bg-couple2: #c3c6de;
+$bg-red: #ee0707;
+$bg-redOpacity01: rgba(238, 7, 7, 0.1);
+$bg-blue: #1832ff;
+$bg-blueOpacity01: rgba(27, 50, 255, 0.1);
+$bg-add: linear-gradient(338.43deg, #ff9d2a 0%, #ef466f 100%);
+$bg-house: linear-gradient(338.43deg, #4045bf 0%, #78bbd8 100%);
+$bg-btn-red: #b2271e;
+$bg-btn-blue: #1677ff;
+$bg-real-green: #77b845;
+$bg-green: rgba(49, 112, 0, 0.1);
+$bg-color-green: #317000;
+$bg-setting: #732e54;
+$bg-error: #e44454;
+
+$orange-text: #ff8000;
+$pink-text: #ff7575;
+$main-text: #252e41;
+
+.bg-1 {
+  background-color: $bgc1;
+}
+.bg-1-1 {
+  background-color: $bgc1-1;
+}
+.bg-1-2 {
+  background-color: $bg1-2;
+}
+.bgc3 {
+  background-color: $bgc3 !important;
+}
+.bgc4 {
+  background-color: $bgc4;
+}
+.bgc5 {
+  background-color: $bgc5;
+}
+.bgc6 {
+  background-color: $bgc6;
+}
+.bg-tree {
+  background-color: $bg-tree-1;
+}
+.bg-green {
+  background-color: $bgc2 !important;
+}
+.bg-btn-green {
+  background-color: $bg-green;
+}
+.bg-rice {
+  background-color: bisque;
+}
+.bg-skyBlue {
+  background-color: $bg-blueOpacity01 !important;
+}
+.bg-chocolate {
+  background-color: $bg-chocolate;
+}
+.bg-white {
+  background-color: $bg-white;
+}
+.bg-purple {
+  background-color: $bg-purple;
+}
+.bg-transparent {
+  background-color: $bg-transparent !important;
+}
+.bg-blue {
+  background-color: #d2d8f7 !important;
+}
+.bg-couple {
+  background-color: $bg-couple;
+}
+.bg-couple1 {
+  background-color: $bg-couple1;
+}
+.bg-red {
+  background-color: $bg-red;
+}
+.bg-red01 {
+  background-color: $bg-redOpacity01;
+}
+.bg-real-green {
+  background-color: $bg-real-green;
+}
+.bg-setting {
+  background: $bg-setting;
+}
+.bg-add-btn {
+  background: $bg-add;
+}
+.bg-btn-red {
+  background-color: $bg-btn-red;
+}
+.bg-btn-house {
+  background: $bg-house;
+}
+.bg-btn-blue {
+  background-color: $bg-btn-blue;
+}
+.bg-footer {
+  background-color: $bg-footer;
+}
+.bg-gray {
+  background-color: #7f7f7f;
+}
+.bg-sign {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
+}
+.bg-finial-tree {
+  background-color: $bg-finial-tree;
+}
+.bg-finial-couple {
+  background-color: $bg-finial-couple;
+}
+.bg-login {
+  background-color: #f3f6f8;
+}
+// text-color
+
+.color-tree {
+  color: #784a11 !important;
+}
+.color-tree-1 {
+  color: $bg-tree-1;
+}
+.color-white {
+  color: white !important;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 1px 2px;
+}
+.color-blue {
+  color: $bg-blue !important;
+}
+.color-couple {
+  color: $bg-couple;
+}
+.color-red {
+  color: $bg-red;
+}
+.color-btn-blue {
+  color: $bg-btn-blue;
+}
+.color-black {
+  color: $bg-black;
+}
+.color-gray {
+  color: $bgc5;
+}
+.color-gray01 {
+  color: $bgc5-1;
+}
+.color-setting {
+  color: $bg-setting;
+}
+.color-pending {
+  color: rgba(30, 30, 30, 0.7) !important;
+}
+.color-reject {
+  color: rgba(30, 30, 30, 0.5) !important;
+}
+.color-green {
+  color: $bg-color-green;
+}
+.color-error {
+  color: $bg-error;
+}
+.orange-text {
+  color: $orange-text;
+}
+.pink-text {
+  color: $pink-text;
+}
+.dark-blue {
+  background: $main-text !important;
+}

@@ -1,0 +1,41 @@
+.login-logo {
+  height: calc(100vh - 82px);
+  width: 100%;
+  background-image: url("../assets/img/login/login.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  object-fit: contain;
+}
+
+.pc-login-img {
+  width: 65%;
+}
+.pc-login-form {
+  width: 35%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .pc-login-img {
+    width: 60%;
+  }
+  .pc-login-form {
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .pc-login-img {
+    width: 50%;
+  }
+  .pc-login-form {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .pc-login-img {
+    width: 0%;
+  }
+  .pc-login-form {
+    width: 100%;
+  }
+}
