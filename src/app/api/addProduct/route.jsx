@@ -12,7 +12,6 @@ export const POST = async (req) => {
   });
 
   if (!getResult) {
-    console.log(1);
     return NextResponse.json({
       responseCode: "新增失敗",
       responseMsg: "必填欄位-有空值",
@@ -20,17 +19,7 @@ export const POST = async (req) => {
   } else {
     const saveID = getResult.ID;
     if (saveID) {
-      // addData.img.forEach(async (item) => {
-      //   await prisma.ProductImage.create({
-      //     data: {
-      //       Name: item.name,
-      //       link: item.link,
-      //       productID: saveID,
-      //     },
-      //   });
-      // });
-
-      addData.img.forEach(async (item) => {
+      addData?.img?.forEach(async (item) => {
         await prisma.ProductImage.create({
           data: {
             Name: item.name,
@@ -39,15 +28,12 @@ export const POST = async (req) => {
           },
         });
       });
-      // console.log(test_);
 
-      console.log(2);
       return NextResponse.json({
         responseCode: "新增成功",
         responseMsg: "必填欄位-有圖片",
       });
     } else {
-      console.log(3);
       return NextResponse.json({
         responseCode: "新增成功",
         responseMsg: "必填欄位-無圖片",

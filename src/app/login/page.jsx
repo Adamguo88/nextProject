@@ -18,7 +18,7 @@ export default function LoginPage() {
     const { username, password } = values;
     const obj = { username, password };
 
-    const fetchResponse = await fetch("http://localhost:3000/api/loginApi", {
+    const fetchResponse = await fetch("http://localhost:3000/api/loginAPI", {
       method: "POST",
       body: JSON.stringify(obj),
     });

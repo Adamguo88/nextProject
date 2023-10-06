@@ -81,7 +81,6 @@ export default function AddPage() {
   };
   const addAPI = async (data) => {
     const newData = { ...data, img: files };
-    console.log(newData);
     try {
       const response = await fetch("http://localhost:3000/api/addProduct", {
         method: "POST",
@@ -90,7 +89,6 @@ export default function AddPage() {
       const result = await response.json();
       if (result.responseCode === "新增成功") {
         alert("新增成功");
-        console.log(result);
         router.push("/permission/productList");
         return;
       }
