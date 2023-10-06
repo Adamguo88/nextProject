@@ -1,30 +1,37 @@
 "use client";
 import React from "react";
+
 import { Button, Form, Input } from "antd";
+
 export default function LoginPage() {
   const onFinish = (values) => {
-    loginAPI(values);
-  };
-  const loginAPI = async (values) => {
-    const response = await fetch("http://localhost:3000/api/loginAPI", {
-      method: "POST",
-      body: JSON.stringify({
-        username: values.username,
-        password: values.password,
-      }),
-    });
-    const responseStatus = await response.json();
-    console.log(responseStatus);
+    const { username, password } = values;
 
-    if (responseStatus.responseCode === "登入成功") {
-      alert("登入成功");
-      window.location.href = '/'
-      return;
+    if (!username && !password) {
+      alert("帳號或密碼不得為空");
     } else {
-      alert("登入失敗");
-      return;
+      login(values);
     }
   };
+
+  const login = async (values) => {
+    const { username, password } = values;
+    const obj = { username, password };
+
+    const fetchResponse = await fetch("http://localhost:3000/api/loginApi", {
+      method: "POST",
+      body: JSON.stringify(obj),
+    });
+    const { responseCode, loginDBResult } = await fetchResponse.json();
+
+    if (responseCode === "登入成功") {
+      alert("登入成功");
+      window.location.href = "/permission";
+    } else {
+      alert("登入失敗");
+    }
+  };
+
   return (
     <Form
       name="basic"

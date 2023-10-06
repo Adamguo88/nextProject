@@ -18,7 +18,7 @@ export const POST = async (req) => {
       });
     }
     const ck = cookies();
-    ck.set("loginToken", "loginInThePrisma");
+    ck.set("loginToken", loginDBResult.ID);
     return NextResponse.json({
       responseCode: "登入成功",
       loginDBResult,
@@ -28,4 +28,12 @@ export const POST = async (req) => {
       responseCode: error,
     });
   }
+};
+
+export const GET = async () => {
+  const data = await prisma.User.findMany();
+
+  return NextResponse.json({
+    data,
+  });
 };

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
+    "@prisma/client": "^5.4.1",
     "antd": "^5.7.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
@@ -20,6 +20,6 @@
     "sass": "^1.63.6"
   },
   "devDependencies": {
-    "prisma": "^5.0.0"
+    "prisma": "^5.4.1"
   }
 }

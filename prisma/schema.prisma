@@ -11,13 +11,24 @@ datasource db {
 }
 
 model Product {
-  ID          String   @id @unique @default(uuid())
-  ProductName String   @default("")
-  Price       String   @default("")
-  Deatils     String   @default("")
-  Discount    String   @default("")
-  CreatedAt   DateTime @default(now())
-  UpdatedAt   DateTime @updatedAt
+  ID           String         @id @unique @default(uuid())
+  ProductName  String         @default("")
+  Price        String         @default("")
+  Deatils      String         @default("")
+  Discount     String         @default("")
+  CreatedAt    DateTime       @default(now())
+  UpdatedAt    DateTime       @updatedAt
+  productImage ProductImage[]
+}
+
+
+model ProductImage {
+  ID        String   @id @default(uuid())
+  Name      String   @default("")
+  link      String   @default("")
+  CreatedAt DateTime @default(now())
+  Product   Product? @relation(fields: [productID], references: [ID])
+  productID String?
 }
 
 model User {
