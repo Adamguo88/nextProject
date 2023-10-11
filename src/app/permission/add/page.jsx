@@ -172,6 +172,7 @@ export default function AddPage() {
             style={{ zIndex: "-1", width: 0 }}
             onChange={handleUploadPDF}
           />
+          
           <Row
             gutter={[10, 10]}
             className="width100 flex flex-wrap "
@@ -184,11 +185,11 @@ export default function AddPage() {
               xs: "center",
             }}
           >
-            {files?.map((item) => {
+            {files?.map((item,index) => {
               return (
                 <Col
                   className="width100 flex flex-column"
-                  key={item.ID}
+                  key={index}
                   xxl={6}
                   xl={6}
                   lg={8}
@@ -218,33 +219,6 @@ export default function AddPage() {
               );
             })}
           </Row>
-          {/* 
-          <div className="flex flex-wrap">
-            {files?.map((item, index) => {
-              return (
-                <div key={index} className="flex flex-column alignCenter">
-                  <img
-                    className="p-5"
-                    src={item.link}
-                    alt={item.name}
-                    style={{
-                      width: "250px",
-                      height: "250px",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <Button
-                    type="primary"
-                    danger
-                    className="mt-10"
-                    onClick={() => deleteImage(item.name)}
-                  >
-                    delete
-                  </Button>
-                </div>
-              );
-            })}
-          </div> */}
 
           <Form.Item className="mt-20 flex justifyEnd">
             <Button type="primary" htmlType="submit">

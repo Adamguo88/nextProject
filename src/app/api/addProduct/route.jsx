@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/db";
 export const POST = async (req) => {
   const addData = await req.json();
+  
   const getResult = await prisma.Product.create({
     data: {
       ProductName: addData.ProductName,

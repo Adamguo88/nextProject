@@ -55,23 +55,15 @@ const BackEndNavBar = () => {
     }
   }, [pathname]);
   return (
-    <div
-      style={{
-        width: "276px",
-        minHeight: "calc(100vh - 46px)",
-        position: "sticky",
-      }}
-    >
-      <Menu
-        style={{ height: "100%" }}
-        defaultSelectedKeys={menuActive}
-        selectedKeys={menuActive}
-        mode="inline"
-        theme="dark"
-        items={items}
-        onClick={handleChangePage}
-      />
-    </div>
+    <Menu
+      style={{ height: "100vh", width: "276px", position: "sticky", top: "0" }}
+      defaultSelectedKeys={menuActive}
+      selectedKeys={menuActive}
+      mode="inline"
+      theme="dark"
+      items={items}
+      onClick={handleChangePage}
+    />
   );
 };
 export default BackEndNavBar;

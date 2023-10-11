@@ -30,6 +30,15 @@ export const POST = async (req) => {
           },
         })
       ),
+      ...data.newImg.map((item) =>
+        prisma.ProductImage.create({
+          data: {
+            Name: item.name,
+            link: item.link,
+            productID: data.ID,
+          },
+        })
+      ),
     ],
   ]);
 
