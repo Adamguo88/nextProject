@@ -11,17 +11,27 @@ export const POST = async (req) => {
     });
   }
 
-  await prisma.Product.update({
-    where: {
-      ID: data.ID,
-    },
-    data: {
-      ProductName: data.updateData.ProductName,
-      Price: data.updateData.Price,
-      Deatils: data.updateData.Deatils,
-      Discount: data.updateData.Discount,
-    },
-  });
+  await prisma.$transaction([
+    prisma.Product.update({
+      where: { ID: data.ID },
+      data: {
+        ProductName: data.updateData.ProductName,
+        Price: data.updateData.Price,
+        Deatils: data.updateData.Deatils,
+        Discount: data.updateData.Discount,
+      },
+    }),
+    ...[
+      ...data.imgList.map((item) =>
+        prisma.ProductImage.delete({
+          where: {
+            ID: item,
+            productID: data.ID,
+          },
+        })
+      ),
+    ],
+  ]);
 
   return NextResponse.json({
     responseCode: "0",

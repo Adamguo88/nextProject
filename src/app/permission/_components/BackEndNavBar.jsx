@@ -57,12 +57,13 @@ const BackEndNavBar = () => {
   return (
     <div
       style={{
-        width: "256px",
-        height: "calc(100vh - 46px)",
+        width: "276px",
+        minHeight: "calc(100vh - 46px)",
+        position: "sticky",
       }}
     >
       <Menu
-        className="backendNavbar"
+        style={{ height: "100%" }}
         defaultSelectedKeys={menuActive}
         selectedKeys={menuActive}
         mode="inline"

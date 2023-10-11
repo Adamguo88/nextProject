@@ -9,7 +9,13 @@ export const POST = async (req) => {
     },
   });
 
-  console.log(getData);
+  const getImage = await prisma.ProductImage.findMany({
+    where:{
+      productID:getID
+    }
+  })
+
+  
 
   if (!getData) {
     return NextResponse.json({
@@ -20,5 +26,6 @@ export const POST = async (req) => {
   return NextResponse.json({
     responseCode: "讀取成功",
     responseData: getData,
+    responseImage:getImage
   });
 };

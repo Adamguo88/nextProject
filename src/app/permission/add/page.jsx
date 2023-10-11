@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Col, Form, Input, Row } from "antd";
 import { useRouter } from "next/navigation";
 export default function AddPage() {
   const [files, setFiles] = useState([]);
@@ -96,9 +96,12 @@ export default function AddPage() {
       console.log(error);
     }
   };
+  const deleteImage = (name) => {
+    const newImageList = files.filter((item) => item.name !== name);
+    setFiles(newImageList);
+  };
   useEffect(() => {
     console.log(files);
-    console.log(files[0]?.link);
   }, [files]);
   return (
     <div
@@ -169,13 +172,81 @@ export default function AddPage() {
             style={{ zIndex: "-1", width: 0 }}
             onChange={handleUploadPDF}
           />
-
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
+          <Row
+            gutter={[10, 10]}
+            className="width100 flex flex-wrap "
+            justify={{
+              xxl: "flex-start",
+              xl: "flex-start",
+              lg: "flex-start",
+              md: "flex-start",
+              sm: "flex-start",
+              xs: "center",
             }}
           >
+            {files?.map((item) => {
+              return (
+                <Col
+                  className="width100 flex flex-column"
+                  key={item.ID}
+                  xxl={6}
+                  xl={6}
+                  lg={8}
+                  md={12}
+                  sm={12}
+                  xs={18}
+                >
+                  <img
+                    className="p-5"
+                    src={item.link}
+                    alt={item.name}
+                    style={{
+                      width: "250px",
+                      height: "250px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Button
+                    type="primary"
+                    danger
+                    className="mt-10"
+                    onClick={() => deleteImage(item.name)}
+                  >
+                    delete
+                  </Button>
+                </Col>
+              );
+            })}
+          </Row>
+          {/* 
+          <div className="flex flex-wrap">
+            {files?.map((item, index) => {
+              return (
+                <div key={index} className="flex flex-column alignCenter">
+                  <img
+                    className="p-5"
+                    src={item.link}
+                    alt={item.name}
+                    style={{
+                      width: "250px",
+                      height: "250px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Button
+                    type="primary"
+                    danger
+                    className="mt-10"
+                    onClick={() => deleteImage(item.name)}
+                  >
+                    delete
+                  </Button>
+                </div>
+              );
+            })}
+          </div> */}
+
+          <Form.Item className="mt-20 flex justifyEnd">
             <Button type="primary" htmlType="submit">
               新增
             </Button>
