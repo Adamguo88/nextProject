@@ -140,6 +140,12 @@ $main-text: #252e41;
 .bg-login {
   background-color: #f3f6f8;
 }
+.bg-error {
+  background-color: $bg-error;
+}
+.bg-setting {
+  background-color: $bg-setting;
+}
 // text-color
 
 .color-tree {

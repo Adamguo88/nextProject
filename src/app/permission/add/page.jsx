@@ -4,6 +4,7 @@ import { Button, Col, Form, Input, Row } from "antd";
 import { useRouter } from "next/navigation";
 export default function AddPage() {
   const [files, setFiles] = useState([]);
+  const [isPdfList, setIsPdfList] = useState([]);
   const router = useRouter();
 
   const handleFunction = {
@@ -58,7 +59,7 @@ export default function AddPage() {
     },
   };
 
-  const handleUploadPDF = (file) => {
+  const handleUploadImage = (file) => {
     const allFiles = [...file.target.files];
     allFiles.forEach((item) => {
       const size = handleFunction.roundToTwo(item.size / 1024 / 1024);
@@ -75,12 +76,25 @@ export default function AddPage() {
       }
     });
   };
+  const handleUploadPDF = (file) => {
+    console.log(file.target.files);
+    [...file.target.files].forEach((item) => {
+      const fileName = item.name;
+      const blob = new Blob([item], { type: "application/pdf" });
+      const blobFiles = {
+        name: fileName,
+        file: blob,
+      };
+      setIsPdfList((data) => [...data, blobFiles]);
+    });
+  };
 
   const onFinish = (values) => {
     addAPI(values);
   };
   const addAPI = async (data) => {
     const newData = { ...data, img: files };
+    console.log(newData);
     try {
       const response = await fetch("http://localhost:3000/api/addProduct", {
         method: "POST",
@@ -158,10 +172,10 @@ export default function AddPage() {
 
           <label
             htmlFor="img"
-            className="color-white bg-green br-5 btn-pointer"
+            className="color-white bg-error br-5 btn-pointer"
             style={{ padding: "6px 15px" }}
           >
-            上傳檔案
+            上傳圖片
           </label>
           <input
             type="file"
@@ -170,9 +184,26 @@ export default function AddPage() {
             accept="image/*"
             multiple
             style={{ zIndex: "-1", width: 0 }}
+            onChange={handleUploadImage}
+          />
+
+          <label
+            htmlFor="pdfFile"
+            className="color-white bg-setting  br-5 btn-pointer"
+            style={{ padding: "6px 15px" }}
+          >
+            上傳檔案
+          </label>
+          <input
+            type="file"
+            name="pdfFile"
+            id="pdfFile"
+            accept=".pdf,.csv"
+            multiple
+            style={{ zIndex: "-1", width: 0 }}
             onChange={handleUploadPDF}
           />
-          
+
           <Row
             gutter={[10, 10]}
             className="width100 flex flex-wrap "
@@ -185,7 +216,7 @@ export default function AddPage() {
               xs: "center",
             }}
           >
-            {files?.map((item,index) => {
+            {files?.map((item, index) => {
               return (
                 <Col
                   className="width100 flex flex-column"
