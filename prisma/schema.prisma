@@ -19,22 +19,12 @@ model Product {
   CreatedAt    DateTime       @default(now())
   UpdatedAt    DateTime       @updatedAt
   productImage ProductImage[]
-  file         File[]
 }
 
 model ProductImage {
   ID        String   @id @default(uuid())
   Name      String   @default("")
   link      String   @default("")
-  CreatedAt DateTime @default(now())
-  Product   Product? @relation(fields: [productID], references: [ID])
-  productID String?
-}
-
-model File {
-  ID        String   @id @unique @default(uuid())
-  name      String   @default("")
-  file      Bytes    @default("")
   CreatedAt DateTime @default(now())
   Product   Product? @relation(fields: [productID], references: [ID])
   productID String?
