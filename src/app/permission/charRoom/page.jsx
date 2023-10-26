@@ -1,13 +1,41 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
+import { notification } from "antd";
 import { SocketContext } from "../layout";
 
 export default function page() {
-  const { isSocket, isUser } = useContext(SocketContext);
+  const { isSocket, isUser } = useContext(SocketContext); // 接收父元件socket參數
+  const messageRef = useRef(); // 套件ref
+  const leaveRef = useRef(); // 離開計時器
+  const enterRef = useRef(); // 進入計時器
+  const [api, contextHolder] = notification.useNotification(); // antd
 
-  const [isMessage, setIsMessage] = useState("");
-  const [isMessageList, setIsMessageList] = useState([]);
+  const [isMessage, setIsMessage] = useState(""); // 傳送訊息
+  const [isMessageList, setIsMessageList] = useState([]); // 聊天室List
+
+  const [isLeave, setIsLeave] = useState(null); // 離開通知
+  const [isEnter, setIsEnter] = useState(null); // 進入通知
+
+  const openNotification = {
+    leaveMessage: (data) => {
+      api.open({
+        message: "離開通知",
+        description: data,
+        duration: 3,
+        placement: "top",
+      });
+    },
+    enterMessage: (data) => {
+      api.open({
+        message: "進入通知",
+        description: data,
+        duration: 3,
+        placement: "top",
+      });
+    },
+  };
+  messageRef.current = openNotification;
 
   const newMessage = (e) => {
     if (e.keyCode === 13 && isMessage.trim().length >= 1) {
@@ -31,17 +59,47 @@ export default function page() {
         if (message.type === "getMessage") {
           setIsMessageList((data) => [...data, message.data]);
         }
+        if (message.type === "leave") {
+          setIsLeave(message.data);
+        }
+        if (message.type === "enter") {
+          setIsEnter(message.data);
+        }
       });
       isSocket.addEventListener("close", () => {
         console.log("即將被斷開連線");
       });
     }
   }, [isSocket]);
+  useEffect(() => {
+    if (!!isEnter) {
+      messageRef.current.enterMessage(isEnter);
+      enterRef.current = setTimeout(() => {
+        setIsLeave(null);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(enterRef.current);
+    };
+  }, [isEnter]);
+
+  useEffect(() => {
+    if (!!isLeave) {
+      messageRef.current.leaveMessage(isLeave);
+      leaveRef.current = setTimeout(() => {
+        setIsLeave(null);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(leaveRef.current);
+    };
+  }, [isLeave]);
   return (
     <div
       className="width100 pl-20 pr-20"
       style={{ maxWidth: "calc(100vw - 276px)" }}
     >
+      {contextHolder}
       <div className="max-width1500 ">
         <div
           style={{

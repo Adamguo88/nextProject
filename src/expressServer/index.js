@@ -1,4 +1,5 @@
 const express = require("express");
+const { v4 } = require("uuid");
 const cors = require("cors");
 const SocketServer = require("ws").Server;
 
@@ -12,18 +13,14 @@ const server = express().listen("8080", () => {
 });
 
 const wss = new SocketServer({ server });
-const userList = {
-  // adam: {
-  //   rooms: [],
-  //   onlyCode: "1",
-  // },
-};
+let userList = {};
 const messageList = [];
 let count = 0;
 wss.on("connection", (ws, req) => {
   const url = new URL(req.url, "http://localhost:8080");
   const param1 = url.searchParams.get("modifyCode");
   const param2 = url.searchParams.get("onlyCode");
+  ws.express_UUID = v4();
   // console.log(param1, param2);
   if (userList[param1]) {
     if (userList[param1].onlyCode !== param2) {
@@ -38,6 +35,15 @@ wss.on("connection", (ws, req) => {
       console.log("重複登入");
     }
   } else {
+    if (Object.keys(userList).length >= 1) {
+      Object.entries(userList).forEach((item) => {
+        item[1].rooms.forEach((room) => {
+          room.send(
+            JSON.stringify({ type: "enter", data: `${param1} - 已進入` })
+          );
+        });
+      });
+    }
     userList[param1] = {
       rooms: [ws],
       onlyCode: param2,
@@ -72,9 +78,35 @@ wss.on("connection", (ws, req) => {
     }
   });
 
-  ws.on("close", () => {
+  ws.on("close", async () => {
     count -= 1;
     console.log(`連線人數 - ${count}`);
-    console.log("斷線囉");
+    userList[param1] = {
+      ...userList[param1],
+      rooms: userList[param1].rooms.filter(
+        (room) => ws.express_UUID !== room.express_UUID
+      ),
+    };
+    if (userList[param1].rooms.length <= 0) {
+      delete userList[param1];
+
+      const findAndUpdate = await fetch(
+        "http://localhost:3000/api/loginAPI/updateLoginStatus",
+        {
+          method: "POST",
+          body: JSON.stringify({ username: param1 }),
+        }
+      );
+      const response = await findAndUpdate.json();
+      console.log(response);
+
+      Object.entries(userList).forEach((item) => {
+        item[1].rooms.forEach((room) => {
+          room.send(
+            JSON.stringify({ type: "leave", data: `${param1} - 已離開` })
+          );
+        });
+      });
+    }
   });
 });

@@ -3,12 +3,11 @@ import { prisma } from "@/db";
 import { cookies } from "next/headers";
 
 export const POST = async (req) => {
-  const { username, password } = await req.json();
+  const { username } = await req.json();
   try {
     const loginDBResult = await prisma.User.findUnique({
       where: {
         Username: username,
-        Password: password,
       },
     });
 
@@ -19,32 +18,18 @@ export const POST = async (req) => {
     }
 
     await prisma.User.update({
-      where: {
-        ID: loginDBResult.ID,
-      },
-      data: {
-        IsLogin: "Y",
-      },
+      where: { ID: loginDBResult.ID },
+      data: { IsLogin: "N" },
     });
     const ck = cookies();
-    ck.set("loginToken", loginDBResult.ID);
+    ck.delete("loginToken");
 
     return NextResponse.json({
-      responseCode: "登入成功",
-      loginDBResult,
+      responseCode: "success",
     });
   } catch (error) {
-    console.log(error);
     return NextResponse.json({
       responseCode: error,
     });
   }
-};
-
-export const GET = async () => {
-  const data = await prisma.User.findMany();
-
-  return NextResponse.json({
-    data,
-  });
 };

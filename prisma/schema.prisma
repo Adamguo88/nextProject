@@ -34,6 +34,7 @@ model User {
   ID         String   @id @unique @default(uuid())
   Username   String   @unique
   Password   String
+  IsLogin    String   @default("N")
   permission String
   CreatedAt  DateTime @default(now())
 }
