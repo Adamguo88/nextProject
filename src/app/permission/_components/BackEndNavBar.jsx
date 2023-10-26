@@ -15,6 +15,7 @@ const items = [
   getItem("後台首頁", "1"),
   getItem("列表", "2"),
   getItem("新增商品", "3"),
+  getItem("聊天室", "4"),
 ];
 const BackEndNavBar = () => {
   const router = useRouter();
@@ -34,6 +35,10 @@ const BackEndNavBar = () => {
         setMenuActive(["3"]);
         router.push("/permission/add");
         return;
+      case "4":
+        setMenuActive(["4"]);
+        router.push("/permission/charRoom");
+        return;
 
       default:
         router.push("/permission");
@@ -49,6 +54,9 @@ const BackEndNavBar = () => {
       case "add":
         setMenuActive(["3"]);
         return;
+      case "charRoom":
+        setMenuActive(["4"]);
+        return;
       default:
         setMenuActive(["1"]);
         return;
@@ -56,7 +64,13 @@ const BackEndNavBar = () => {
   }, [pathname]);
   return (
     <Menu
-      style={{ height: "100vh", width: "276px", position: "sticky", top: "0" }}
+      style={{
+        minHeight: "calc(100vh - 46px)",
+        height: "100vh",
+        width: "276px",
+        position: "sticky",
+        top: "0",
+      }}
       defaultSelectedKeys={menuActive}
       selectedKeys={menuActive}
       mode="inline"
