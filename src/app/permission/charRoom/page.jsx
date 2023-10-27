@@ -34,6 +34,14 @@ export default function page() {
         placement: "top",
       });
     },
+    repeatLoginMessage: (data) => {
+      api.open({
+        message: "裝置被重複登入",
+        description: data,
+        duration: 3,
+        placement: "top",
+      });
+    },
   };
   messageRef.current = openNotification;
 
@@ -69,6 +77,9 @@ export default function page() {
       isSocket.addEventListener("close", () => {
         console.log("即將被斷開連線");
       });
+      isSocket.addEventListener("error", (error) => {
+        console.log("出錯拉", error);
+      });
     }
   }, [isSocket]);
   useEffect(() => {
@@ -82,7 +93,6 @@ export default function page() {
       clearTimeout(enterRef.current);
     };
   }, [isEnter]);
-
   useEffect(() => {
     if (!!isLeave) {
       messageRef.current.leaveMessage(isLeave);

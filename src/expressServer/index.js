@@ -25,8 +25,19 @@ wss.on("connection", (ws, req) => {
   if (userList[param1]) {
     if (userList[param1].onlyCode !== param2) {
       userList[param1].rooms.forEach((item) => {
+        item.send(
+          JSON.stringify({
+            type: "repeatLogin",
+            data: "有人登入您的裝置，您即將被自動登出",
+          })
+        );
         item.close();
       });
+      delete userList[param1];
+      userList[param1] = {
+        rooms: [ws],
+        onlyCode: param2,
+      };
     } else {
       userList[param1] = {
         rooms: [ws, ...userList[param1].rooms],
@@ -44,11 +55,11 @@ wss.on("connection", (ws, req) => {
         });
       });
     }
+    console.log("第一次登入");
     userList[param1] = {
       rooms: [ws],
       onlyCode: param2,
     };
-    console.log("第一次登出");
   }
 
   count += 1;
@@ -83,11 +94,11 @@ wss.on("connection", (ws, req) => {
     console.log(`連線人數 - ${count}`);
     userList[param1] = {
       ...userList[param1],
-      rooms: userList[param1].rooms.filter(
+      rooms: userList[param1]?.rooms?.filter(
         (room) => ws.express_UUID !== room.express_UUID
       ),
     };
-    if (userList[param1].rooms.length <= 0) {
+    if (userList[param1]?.rooms?.length <= 0) {
       delete userList[param1];
 
       const findAndUpdate = await fetch(

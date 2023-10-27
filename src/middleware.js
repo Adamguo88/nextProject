@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
   const getToken = request.cookies.get("loginToken");
+
   // console.log(getToken?.value);
-  if (request.nextUrl.pathname === "/permission") {
+  if (request.nextUrl.pathname.includes("/permission")) {
     if (!getToken?.value) {
       const url = request.nextUrl.clone();
       url.pathname = "/login";
@@ -25,5 +26,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/permission", "/login"],
+  matcher: ["/permission", "/permission/:path*", "/login"],
 };

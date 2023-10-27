@@ -1,9 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button, Form, Input } from "antd";
 
 export default function LoginPage() {
+  useEffect(() => {
+    localStorage.clear();
+    document.cookie = "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }, []);
   const onFinish = (values) => {
     const { username, password } = values;
 
@@ -27,6 +31,7 @@ export default function LoginPage() {
     if (responseCode === "登入成功") {
       alert("登入成功");
       window.location.href = "/permission";
+      window.location.reload();
     } else {
       alert("登入失敗");
     }

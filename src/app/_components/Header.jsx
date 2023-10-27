@@ -57,9 +57,10 @@ export default function Header() {
           label: "登出",
           key: "logout",
           onClick: () => {
+            localStorage.clear();
             document.cookie =
               "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-            window.location.href = "/";
+            window.location.replace("/");
           },
         };
       })(),
