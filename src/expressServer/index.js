@@ -99,17 +99,22 @@ wss.on("connection", (ws, req) => {
       ),
     };
     if (userList[param1]?.rooms?.length <= 0) {
+      const saveUserName = param1;
       delete userList[param1];
 
-      const findAndUpdate = await fetch(
-        "http://localhost:3000/api/loginAPI/updateLoginStatus",
-        {
-          method: "POST",
-          body: JSON.stringify({ username: param1 }),
+      setTimeout(async () => {
+        if (userList[saveUserName]?.rooms?.length <= 0 || !userList[saveUserName]?.rooms?.length) {
+          const findAndUpdate = await fetch(
+            "http://localhost:3000/api/loginAPI/updateLoginStatus",
+            {
+              method: "POST",
+              body: JSON.stringify({ username: saveUserName }),
+            }
+          );
+          const response = await findAndUpdate.json();
+          console.log(response);
         }
-      );
-      const response = await findAndUpdate.json();
-      console.log(response);
+      }, 3000);
 
       Object.entries(userList).forEach((item) => {
         item[1].rooms.forEach((room) => {

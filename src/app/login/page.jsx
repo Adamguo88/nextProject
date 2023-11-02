@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-
+import { signIn, signOut } from "next-auth/react";
 import { Button, Form, Input } from "antd";
 
 export default function LoginPage() {
@@ -36,59 +36,93 @@ export default function LoginPage() {
       alert("登入失敗");
     }
   };
+  const logout = async () => {
+    await signOut({ callbackUrl: "/login" });
+  };
 
   return (
-    <Form
-      name="basic"
-      labelCol={{
-        span: 5,
-      }}
-      wrapperCol={{
-        span: 19,
-      }}
-      initialValues={{
-        remember: true,
-      }}
-      labelAlign="left"
-      onFinish={onFinish}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="帳號"
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: "輸入帳號",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-
-      <Form.Item
-        label="密碼"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: "輸入密碼",
-          },
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
+    <div className="flex flex-column">
+      <Form
+        name="basic"
+        labelCol={{
+          span: 5,
         }}
+        wrapperCol={{
+          span: 19,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        labelAlign="left"
+        onFinish={onFinish}
+        autoComplete="off"
       >
-        <Button type="primary" htmlType="submit">
-          登入
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          label="帳號"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: "輸入帳號",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="密碼"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "輸入密碼",
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            登入
+          </Button>
+        </Form.Item>
+      </Form>
+
+      <Button
+        type="primary"
+        style={{ backgroundColor: "#850303" }}
+        onClick={() => signIn("google", { callbackUrl: "/map" })}
+      >
+        Google
+      </Button>
+      <Button
+        type="primary"
+        style={{ backgroundColor: "#000", marginTop: "10px" }}
+        onClick={() => signIn("github", { callbackUrl: "/map" })}
+      >
+        Github
+      </Button>
+      <Button
+        type="primary"
+        style={{ backgroundColor: "blue", marginTop: "10px" }}
+        onClick={() => signIn("facebook", { callbackUrl: "/map" })}
+      >
+        Facebook
+      </Button>
+      <Button
+        type="primary"
+        style={{ backgroundColor: "#850303", marginTop: "10px" }}
+        onClick={logout}
+      >
+        登出
+      </Button>
+    </div>
   );
 }

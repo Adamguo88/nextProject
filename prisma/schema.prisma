@@ -18,7 +18,15 @@ model Product {
   Discount     String         @default("")
   CreatedAt    DateTime       @default(now())
   UpdatedAt    DateTime       @updatedAt
+  Files        ProductFiles[]
   productImage ProductImage[]
+}
+
+model ProductFiles {
+  ID        String   @id @unique @default(uuid())
+  FileName  String   @unique()
+  Product   Product? @relation(fields: [productID], references: [ID])
+  productID String?
 }
 
 model ProductImage {

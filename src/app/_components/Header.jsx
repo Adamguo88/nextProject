@@ -1,9 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu } from "antd";
+import { useSession, signOut } from "next-auth/react";
 export default function Header() {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const [savePathname, setSavePathname] = useState("/");
   const [isMenuItem, setIsMenuItem] = useState([]);
@@ -20,15 +22,19 @@ export default function Header() {
       return;
     }
   }, [pathname]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getLoginCookie = document.cookie?.split("loginToken=")?.[1];
     const items = [
+      {
+        label: <span>{!!session ? session?.user?.name : "無登入"}</span>,
+        key: "87",
+      },
       {
         label: <Link href="/">首頁</Link>,
         key: "/",
       },
       (() => {
-        if (!getLoginCookie) {
+        if (!getLoginCookie && !session) {
           return null;
         } else {
           return {
@@ -41,8 +47,12 @@ export default function Header() {
         label: <Link href="/open">倉庫</Link>,
         key: "/open",
       },
+      {
+        label: <Link href="/map">地圖</Link>,
+        key: "/map",
+      },
       (() => {
-        if (getLoginCookie) return null;
+        if (!!getLoginCookie || !!session) return null;
 
         return {
           label: <Link href="/login">登入</Link>,
@@ -51,22 +61,26 @@ export default function Header() {
       })(),
 
       (() => {
-        if (!getLoginCookie) return null;
+        if (!getLoginCookie && !session) return null;
 
         return {
           label: "登出",
           key: "logout",
-          onClick: () => {
-            localStorage.clear();
-            document.cookie =
-              "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-            window.location.replace("/");
+          onClick: async () => {
+            if (!!session) {
+              await signOut({ callbackUrl: "/login" });
+            } else {
+              localStorage.clear();
+              document.cookie =
+                "loginToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+              window.location.replace("/");
+            }
           },
         };
       })(),
     ];
     setIsMenuItem(items);
-  }, []);
+  }, [session]);
   return (
     <Menu
       onClick={onClick}

@@ -1,9 +1,35 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "antd";
+import { Button, Card, Col, Row } from "antd";
 
 export default function OpenPage() {
   const [data, setData] = useState([]);
+
+  const handleDownload = async (file) => {
+    const downloadResponse = await fetch(
+      "http://localhost:3000/api/downLoadFile",
+      {
+        method: "POST",
+        body: JSON.stringify({ name: file }),
+        responseType: "blob",
+      }
+    );
+    const expressBlob = await downloadResponse.blob();
+    if (expressBlob) {
+      const blobTest = new Blob([expressBlob], {
+        type: "application/pdf;charset=UTF-8",
+      });
+      const url = URL.createObjectURL(blobTest);
+
+      let downloadBtn = document.createElement("a");
+      downloadBtn.href = url;
+      downloadBtn.download = file;
+      downloadBtn.click();
+      URL.revokeObjectURL(url);
+      downloadBtn = null;
+      return;
+    }
+  };
   useEffect(() => {
     const getCardAPI = async () => {
       const url = "http://localhost:3000/api/productList";
@@ -25,6 +51,19 @@ export default function OpenPage() {
               <Col span={8} key={item.ID}>
                 <Card title={item.ProductName} bordered={false}>
                   <span>{item.Deatils}</span>
+                  {item.Files.map((file, index) => {
+                    return (
+                      <Button
+                        key={index}
+                        type="primary"
+                        block
+                        style={{ marginTop: 5 }}
+                        onClick={() => handleDownload(file.FileName)}
+                      >
+                        {file.FileName}
+                      </Button>
+                    );
+                  })}
                 </Card>
               </Col>
             );

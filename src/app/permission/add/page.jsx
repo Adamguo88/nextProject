@@ -93,18 +93,26 @@ export default function AddPage() {
     addAPI(values);
   };
   const addAPI = async (data) => {
+    const formData = new FormData();
     const newData = { ...data, img: files };
-    console.log(newData);
+    formData.append("basicData", JSON.stringify(newData));
+    isPdfList.forEach((item) => {
+      formData.append("File", item.file, item.name);
+    });
     try {
       const response = await fetch("http://localhost:3000/api/addProduct", {
         method: "POST",
-        body: JSON.stringify(newData),
+        body: formData,
       });
       const result = await response.json();
+      console.log(result);
       if (result.responseCode === "新增成功") {
         alert("新增成功");
         router.push("/permission/productList");
         return;
+      }
+      if (result.responseCode === "999") {
+        alert(result.responseMsg);
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +123,7 @@ export default function AddPage() {
     setFiles(newImageList);
   };
   useEffect(() => {
-    console.log(files);
+    // console.log(files);
   }, [files]);
   return (
     <div
