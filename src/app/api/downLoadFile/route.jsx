@@ -3,15 +3,18 @@ const fs = require("fs");
 const path = require("path");
 export const POST = async (req) => {
   const { name } = await req.json();
-  const requestHeader = new Headers(req.headers);
-  requestHeader.set("Content-Type", "application/pdf");
-  requestHeader.set("Content-Disposition", `attachment; filename=${name}`);
 
   const fileLink = path.join(process.cwd(), "public", "files", name);
   const readFile = fs.readFileSync(fileLink);
 
   if (!!readFile) {
-    return new Response(readFile)
+    return new Response(readFile, {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename=${name}`,
+        "Content-Length": readFile.length,
+      },
+    });
   }
   return NextResponse.json({
     responseCode: "-1",

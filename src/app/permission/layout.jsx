@@ -87,6 +87,7 @@ export default function layout({ children }) {
             localStorage.setItem("onlyCode", onlyCode);
             socketData.onlyCode = onlyCode;
           }
+
           const socket = new WebSocket(
             `ws://localhost:8080?modifyCode=${socketData.modifyCode}&onlyCode=${socketData.onlyCode}`
           );

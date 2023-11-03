@@ -51,6 +51,10 @@ export default function Header() {
         label: <Link href="/map">地圖</Link>,
         key: "/map",
       },
+      {
+        label: <Link href="/table">表格</Link>,
+        key: "/table",
+      },
       (() => {
         if (!!getLoginCookie || !!session) return null;
 
