@@ -8,6 +8,9 @@ import { notification } from "antd";
 export const SocketContext = createContext(null);
 
 export default function layout({ children }) {
+  const renderRef = useRef(false); // 防止useEffect 觸發兩次
+  const timeOutRef = useRef(null);
+
   const [api, contextHolder] = notification.useNotification(); // antd
   const messageRef = useRef();
 
@@ -45,60 +48,64 @@ export default function layout({ children }) {
   messageRef.current = openNotification;
 
   useEffect(() => {
-    const getCookie = JsCookie.get("loginToken");
-    const socketData = {
-      modifyCode: null,
-      onlyCode: null,
-    };
-    if (!!getCookie) {
-      const getStatus = async () => {
-        const responseData = await fetch(
-          "http://localhost:3000/api/loginAPI/getLoginStatus",
-          {
-            method: "POST",
-            body: JSON.stringify({ token: JsCookie.get("loginToken") }),
-          }
-        );
-        const { responseCode } = await responseData.json();
-        if (!!responseCode && responseCode === "N") {
-          JsCookie.remove("loginToken");
-          window.location.reload("/login");
-        } else {
-          findUserCode();
-        }
+    if (renderRef.current === false) {
+      renderRef.current = true;
+    } else {
+      const getCookie = JsCookie.get("loginToken");
+      const socketData = {
+        modifyCode: null,
+        onlyCode: null,
       };
-      const findUserCode = async () => {
-        const findUser = await fetch(
-          "http://localhost:3000/api/loginAPI/findUser",
-          {
-            method: "POST",
-            body: JSON.stringify({ id: getCookie }),
-          }
-        );
-        const { responseCode } = await findUser.json();
-        if (!!responseCode) {
-          localStorage.setItem("isUser", responseCode);
-          socketData.modifyCode = responseCode;
-          setIsUser(responseCode);
-          const getOnlyCode = localStorage.getItem("onlyCode");
-          socketData.onlyCode = getOnlyCode;
-          if (!getOnlyCode) {
-            const onlyCode = v4();
-            localStorage.setItem("onlyCode", onlyCode);
-            socketData.onlyCode = onlyCode;
-          }
-
-          const socket = new WebSocket(
-            `ws://localhost:8080?modifyCode=${socketData.modifyCode}&onlyCode=${socketData.onlyCode}`
+      if (!!getCookie) {
+        const getStatus = async () => {
+          const responseData = await fetch(
+            "http://localhost:3000/api/loginAPI/getLoginStatus",
+            {
+              method: "POST",
+              body: JSON.stringify({ token: JsCookie.get("loginToken") }),
+            }
           );
-          if (!!socket) {
-            console.log(socket);
-            setIsSocket(socket);
-            setIsLoading(false);
+          const { responseCode } = await responseData.json();
+          if (!!responseCode && responseCode === "N") {
+            JsCookie.remove("loginToken");
+            window.location.reload("/login");
+          } else {
+            findUserCode();
           }
-        }
-      };
-      getStatus();
+        };
+        const findUserCode = async () => {
+          const findUser = await fetch(
+            "http://localhost:3000/api/loginAPI/findUser",
+            {
+              method: "POST",
+              body: JSON.stringify({ id: getCookie }),
+            }
+          );
+          const { responseCode } = await findUser.json();
+          if (!!responseCode) {
+            localStorage.setItem("isUser", responseCode);
+            socketData.modifyCode = responseCode;
+            setIsUser(responseCode);
+            const getOnlyCode = localStorage.getItem("onlyCode");
+            socketData.onlyCode = getOnlyCode;
+            if (!getOnlyCode) {
+              const onlyCode = v4();
+              localStorage.setItem("onlyCode", onlyCode);
+              socketData.onlyCode = onlyCode;
+            }
+
+            const socket = new WebSocket(
+              `ws://localhost:8080?modifyCode=${socketData.modifyCode}&onlyCode=${socketData.onlyCode}`
+            );
+            if (!!socket) {
+              console.log(socket);
+              setIsSocket(socket);
+              setIsLoading(false);
+            }
+          }
+        };
+        getStatus();
+      }
     }
   }, []);
 

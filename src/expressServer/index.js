@@ -79,8 +79,8 @@ wss.on("connection", (ws, req) => {
     const message = JSON.parse(msg);
     if (message.type === "chat") {
       const data = message.data;
+      console.log(data);
       messageList.push(data);
-      console.log(userList);
       Object.entries(userList).forEach((item) => {
         item[1].rooms.forEach((room) => {
           room.send(JSON.stringify({ type: "getMessage", data: data }));
@@ -103,7 +103,10 @@ wss.on("connection", (ws, req) => {
       delete userList[param1];
 
       setTimeout(async () => {
-        if (userList[saveUserName]?.rooms?.length <= 0 || !userList[saveUserName]?.rooms?.length) {
+        if (
+          userList[saveUserName]?.rooms?.length <= 0 ||
+          !userList[saveUserName]?.rooms?.length
+        ) {
           const findAndUpdate = await fetch(
             "http://localhost:3000/api/loginAPI/updateLoginStatus",
             {

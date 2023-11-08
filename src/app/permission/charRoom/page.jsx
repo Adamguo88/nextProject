@@ -5,6 +5,7 @@ import { notification } from "antd";
 import { SocketContext } from "../layout";
 
 export default function page() {
+  const renderRef = useRef(false);
   const { isSocket, isUser } = useContext(SocketContext); // 接收父元件socket參數
   const messageRef = useRef(); // 套件ref
   const leaveRef = useRef(); // 離開計時器
@@ -58,28 +59,32 @@ export default function page() {
     }
   };
   useEffect(() => {
-    if (!!isSocket) {
-      isSocket.addEventListener("open", () => {
-        console.log("已啟動連線");
-      });
-      isSocket.addEventListener("message", (msg) => {
-        const message = JSON.parse(msg.data);
-        if (message.type === "getMessage") {
-          setIsMessageList((data) => [...data, message.data]);
-        }
-        if (message.type === "leave") {
-          setIsLeave(message.data);
-        }
-        if (message.type === "enter") {
-          setIsEnter(message.data);
-        }
-      });
-      isSocket.addEventListener("close", () => {
-        console.log("即將被斷開連線");
-      });
-      isSocket.addEventListener("error", (error) => {
-        console.log("出錯拉", error);
-      });
+    if (!renderRef.current) {
+      renderRef.current = true;
+    } else {
+      if (!!isSocket) {
+        isSocket.addEventListener("open", () => {
+          console.log("已啟動連線");
+        });
+        isSocket.addEventListener("message", (msg) => {
+          const message = JSON.parse(msg.data);
+          if (message.type === "getMessage") {
+            setIsMessageList((data) => [...data, message.data]);
+          }
+          if (message.type === "leave") {
+            setIsLeave(message.data);
+          }
+          if (message.type === "enter") {
+            setIsEnter(message.data);
+          }
+        });
+        isSocket.addEventListener("close", () => {
+          console.log("即將被斷開連線");
+        });
+        isSocket.addEventListener("error", (error) => {
+          console.log("出錯拉", error);
+        });
+      }
     }
   }, [isSocket]);
   useEffect(() => {

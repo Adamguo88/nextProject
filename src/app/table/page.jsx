@@ -3,19 +3,20 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Pagination } from "antd";
 
 import { changePage } from "@/utils/ChangePage";
+import MyPagination from "./MyPagination";
 
 export default function page() {
-  const [isTableData, setIsTableData] = useState([]);   // 所有資料
-  const [isShowData, setIsShowData] = useState([]);     // 頁數
-  const [cachePage, setCachePage] = useState(1);        // 一次展示數量
+  const [isTableData, setIsTableData] = useState([]); // 所有資料
+  const [isShowData, setIsShowData] = useState([]); // 頁數
+  const [cachePage, setCachePage] = useState(1); // 一次展示數量
 
   const handleChangePage = useCallback(
     (e = parseInt(cachePage || 1), pagesSize = 10) => {
       if (!isTableData?.length) return;
       const response = changePage({
         tableData: isTableData, // 所有資料
-        e,                      // 頁數
-        pagesSize,              // 一次展示數量
+        e, // 頁數
+        pagesSize, // 一次展示數量
       });
       setIsShowData(response.data);
       setCachePage(response.cachePage);
@@ -23,8 +24,11 @@ export default function page() {
     [isTableData, setCachePage, cachePage]
   );
 
+  const myHandleChangePage = (value) => {
+    console.log(value);
+  };
   useEffect(() => {
-    const fakeDataArray = Array.from({ length: 25 }, (_, i) => ({
+    const fakeDataArray = Array.from({ length: 100 }, (_, i) => ({
       CusName: i + 1,
       ConsName: i + 1,
     }));
@@ -72,6 +76,14 @@ export default function page() {
               onChange={handleChangePage}
               defaultPageSize={10}
               showSizeChanger={false}
+            />
+          </div>
+          <div className="flex-center mt-20">
+            <MyPagination
+              total={isTableData.length}
+              defaultPage={1}
+              currentPage={1}
+              onChange={myHandleChangePage}
             />
           </div>
         </div>
